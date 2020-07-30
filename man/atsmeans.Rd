@@ -4,82 +4,149 @@
 \alias{atsmeans}
 \title{Identify adaptive treatment strategy and estimate strategy values}
 \usage{
-atsmeans(data, family = "normal", method = "Gest", common = FALSE,
-  conf = TRUE, alpha = 0.05, plot = FALSE)
+atsmeans(
+  data,
+  family = c("gaussian", "binomial")[1],
+  method = c("Gest", "IPW")[1],
+  digits = NULL,
+  common = FALSE,
+  conf = TRUE,
+  alpha = 0.05,
+  plot = FALSE,
+  title = "Strategy values with confidence interval",
+  color = "forestgreen",
+  ylab = "Strategy value",
+  xlab = NULL,
+  xtext = NULL,
+  pch = 15,
+  cex = 2,
+  lwd = 3,
+  ylim = NULL,
+  mar = NULL,
+  cex.axis = 1,
+  line = NULL
+)
 }
 \arguments{
-\item{data}{Input data frame of the sequential randomized trial (SMART) data used for analysis. The data should include the variables of stage-specific treatments (At; t=1,2,3), intermediate evaluation (Ot; t=1,2,3) and final primary outcome (Y), where t represent the number of stages embedded in design. If stage-1 treatment (A1) takes into account the information of baseline evaluation, O1 needed to be include in data, otherwise not.}
+\item{data}{Input data frame of the sequential
+randomized trial (SMART) data used for analysis.
+The data should include the variables of stage-specific
+ treatments (At; t=1,2,3), intermediate evaluation
+ (Ot; t=1,2,3) and final primary outcome (Y),
+ where t represent the number of stages embedded in design.
+  If stage-1 treatment (A1) takes into account the information
+  of baseline evaluation, O1 needed to be include in data,
+  otherwise not.}
 
-\item{family}{A character string to specify the type of final primary outcome. The default is family=“normal”, which refers to the continuous primary outcome. If family=”binomial” then the primary outcome will be treated as binary variable.}
+\item{family}{A character string to specify the
+type of final primary outcome. The default is
+family=“gaussian”, which refers to the continuous
+ primary outcome. If family=”binomial” then the
+ primary outcome will be treated as binary variable.}
 
-\item{method}{A character string to specify the method of estimation. If method=``Gest'' then G-computation method is used. If method=``IPW'' then Inversed Probability Weighting method is used.}
+\item{method}{A character string to specify the
+method of estimation. If method="Gest" then
+G-computation method is used. If method="IPW" then
+Inversed Probability Weighting method is used.}
 
-\item{common}{If common=TRUE, the pooled variance across all the treatment sequences are used in estimation. Otherwise use the sequence-specific variance. The default is common=FALSE.}
+\item{digits}{An integer indicating the number
+of decimal places for sequence-specific mean and variance.
+ Default is digits=NULL.}
 
-\item{conf}{If conf=TRUE, output confidence intervals for estimate strategy values. The default is conf=FALSE.}
+\item{common}{If common=TRUE, the pooled variance across
+all the treatment sequences are used in estimation.
+Otherwise use the sequence-specific variance. The default is common=FALSE.}
 
-\item{alpha}{Type I error rate control for confidence interval. The default is alpha=0.05.}
+\item{conf}{If conf=TRUE, output confidence intervals
+for estimate strategy values. The default is conf=TRUE.}
 
-\item{plot}{If plot=TRUE, output the graphs of treatment effects with CIs.}
+\item{alpha}{Type I error rate control for confidence
+interval. The default is alpha=0.05.}
+
+\item{plot}{If plot=TRUE, output the graphs of
+treatment effects with CIs. The default is plot=TRUE.}
+
+\item{title}{Characters indicating the title of the graphs.
+Default is “Strategy values with confidence intervals”.}
+
+\item{color}{Characters indicating the color of the graphs.
+Default is color=“forestgreen”.}
+
+\item{ylab}{Characters to specify the label of the 
+vertical axis of the output figure. 
+Default is “Strategy value”.}
+
+\item{xlab}{characters to specify the label of the horizontal 
+axis of the output figure.}
+
+\item{xtext}{Specification for the text of the horizontal axis of the graphs.}
+
+\item{pch}{An integer to specify the shape of points in the graphs. 
+The default is pch=15.}
+
+\item{cex}{An integer to specify the amount by which plotting symbols 
+should be magnified. The default is cex=2.}
+
+\item{lwd}{An integer to specify the line width,
+The lines refer to the width of the confidence interval. 
+The default is lwd=1.}
+
+\item{ylim}{Integers to specify the maximum and minimum value of 
+y axis.}
+
+\item{mar}{A numerical vector of the form c(bottom, left, top, right) 
+which gives the number of lines of margin to be specified 
+on the four sides of the plot.}
+
+\item{cex.axis}{The magnification to be used for the horizontal axis 
+annotation relative to the current setting of cex.}
+
+\item{line}{Specifying a value for line overrides 
+the default placement of label 
+of the horizontal axis of the graphs.}
 }
 \value{
-An object of ``value” is return, which contain the index of all the adaptive treatment strategies, strategy-specific sample sizes and estimated values with standardized errors.
+An object of ``value” is return, which contain
+the index of all the adaptive treatment strategies,
+strategy-specific sample sizes and estimated values
+with standardized errors.
 \itemize{
-   \item ATS: Index of adaptive treatment strategy from 1 to G, where G is total number of strategies defined in SMART
-   \item ds: Stage-specific decision makings given certain histories corresponding to each strategy. The number of columns of ``ds'' is defined by strategy and details are shown in the output.
+   \item ATS: Index of adaptive treatment strategy
+   from 1 to G, where G is total number of strategies
+    defined in SMART
+   \item ds: Stage-specific decision makings given
+    certain histories corresponding to each strategy.
+    The number of columns of ``ds'' is defined by strategy
+     and details are shown in the output.
    \item N: Number of subjects following a strategy.
    \item value: Estimated strategy values.
    \item se: standard errors of estimation
-   \item lower.CI: Lower bound of (1-alpha) level confidence interval for strategy values
-   \item upper.CI: Upper bound of (1-alpha) level confidence interval for strategy values
+   \item lower.CI: Lower bound of (1-alpha) level confidence
+   interval for strategy values
+   \item upper.CI: Upper bound of (1-alpha) level confidence
+   interval for strategy values
    }
-An object of ``vmat'' is return, which is variance-covariance matrix of estimated strategy values
+An object of ``vmat'' is return, which is variance-covariance matrix of
+estimated strategy values
 }
 \description{
-Return a message that lists all the adaptive treatment strategy embedded in SMART design. It also gives the estiamted strategy values and the variance-covariance matrix of estimated values.
+Return a message that lists all the
+adaptive treatment strategy embedded in SMART design.
+It also gives the estiamted strategy values and the
+variance-covariance matrix of estimated values.
 }
 \examples{
-#generate a pesudo SMART data
-N=8000                       # total sample size
-A1=O2=A2=Y=rep(NA,N)
-Dat=data.frame(A1,O2,A2,Y)
 
-# stage-1 treatment
-Dat$A1=sample(c(0,1),size=N,prob=c(1,1),replace=TRUE)
-
-# intermediate outcome
-n0=length(Dat$A1[which(Dat$A1==0)]); n1=N-n0
-Dat$O2[which(Dat$A1==0)]=rbinom(n=n0,size=1,p=0.6)
-Dat$O2[which(Dat$A1==1)]=rbinom(n=n1,size=1,p=0.4)
-
-# stage-2 treatment
-n00=nrow(Dat[which(Dat$A1==0 & Dat$O2==0),]); n01=n0-n00
-n10=nrow(Dat[which(Dat$A1==1 & Dat$O2==0),]); n11=n1-n10
-Dat$A2[which(Dat$A1==0 & Dat$O2==0)]=sample(c(0,1),size=n00,prob=c(1,1),replace=TRUE)
-Dat$A2[which(Dat$A1==0 & Dat$O2==1)]=sample(c(0,1),size=n01,prob=c(1,1),replace=TRUE)
-Dat$A2[which(Dat$A1==1 & Dat$O2==0)]=sample(c(0,1),size=n10,prob=c(1,1),replace=TRUE)
-Dat$A2[which(Dat$A1==1 & Dat$O2==1)]=sample(c(0,1),size=n11,prob=c(1,1),replace=TRUE)
-
-n000=nrow(Dat[which(Dat$A1==0 & Dat$O2==0 & Dat$A2==0),]); n001=n00-n000
-n010=nrow(Dat[which(Dat$A1==0 & Dat$O2==1 & Dat$A2==0),]); n011=n01-n010
-n100=nrow(Dat[which(Dat$A1==1 & Dat$O2==0 & Dat$A2==0),]); n101=n10-n100
-n110=nrow(Dat[which(Dat$A1==1 & Dat$O2==1 & Dat$A2==0),]); n111=n11-n110
-
-# final primary outcome
-Dat$Y[which(Dat$A1==0 & Dat$O2==0 & Dat$A2==0)]=rnorm(n=n000,mean=7,sd=6)
-Dat$Y[which(Dat$A1==0 & Dat$O2==0 & Dat$A2==1)]=rnorm(n=n001,mean=7,sd=6)
-Dat$Y[which(Dat$A1==0 & Dat$O2==1 & Dat$A2==0)]=rnorm(n=n010,mean=7,sd=8)
-Dat$Y[which(Dat$A1==0 & Dat$O2==1 & Dat$A2==1)]=rnorm(n=n011,mean=7,sd=8)
-Dat$Y[which(Dat$A1==1 & Dat$O2==0 & Dat$A2==0)]=rnorm(n=n100,mean=7,sd=6)
-Dat$Y[which(Dat$A1==1 & Dat$O2==0 & Dat$A2==1)]=rnorm(n=n101,mean=7,sd=6)
-Dat$Y[which(Dat$A1==1 & Dat$O2==1 & Dat$A2==0)]=rnorm(n=n110,mean=7,sd=8)
-Dat$Y[which(Dat$A1==1 & Dat$O2==1 & Dat$A2==1)]=rnorm(n=n111,mean=7,sd=8)
-
-atsmeans(data=Dat,family="normal",method="Gest",conf=TRUE,common=TRUE,alpha=0.05,plot=TRUE)
+atsmeans(data=codiacs,family="gaussian",method="Gest",
+conf=TRUE,common=TRUE,alpha=0.05,plot=TRUE,pch=12,lwd=2)
 
 }
 \references{
-Lavori P.W. and Dawson R. (2007). Improving the efficiency of estimation in randomization trials of adaptive treatment strategies. \emph{Clinical Trials}, 4: 297-308.
+Lavori P.W. and Dawson R. (2007). Improving the
+efficiency of estimation in randomization trials of adaptive
+treatment strategies. \emph{Clinical Trials}, 4: 297-308.
 
-Ko and Wahed A.S. (2015). Design of sequentially randomization trials for testing adaptive treatment strategies. \emph{Statistics in Medicine}, 31, 812-830.
+Ko and Wahed A.S. (2015). Design of sequentially
+randomization trials for testing adaptive treatment strategies.
+\emph{Statistics in Medicine}, 31, 812-830.
 }

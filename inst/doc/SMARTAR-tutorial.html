@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>SMARTAR-tutorial</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">SMARTAR-tutorial</h1>
+
+
+
+<p>SMARTAR package is for primary data analysis for sequential multiple assignment randomization trial (SMART) and are calibration tools for clinical trial planning purposes. This is a simple illustration of SMARTAR package. It only contains five main functions which are <code>seqmeans</code>, <code>atsmeans</code>, <code>smartest</code>, <code>smartsize</code> and <code>getncp</code>. In addition, it also contains one dataset <code>codiacs</code>.</p>
+<p>The use of these functions and dataset is:</p>
+<div id="load-package-and-dataset" class="section level2">
+<h2>load package and dataset</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw">library</span>(SMARTAR)</a>
+<a class="sourceLine" id="cb1-2" title="2"><span class="kw">data</span>(codiacs)</a></code></pre></div>
+</div>
+<div id="seqmeans" class="section level2">
+<h2>seqmeans</h2>
+<p>Exports treatment sequence, summarizes all the sequence-specific descriptive statistics and graphs, and provides design diagram of SMART.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw">seqmeans</span>(<span class="dt">data=</span>codiacs ,<span class="dt">family=</span><span class="st">&quot;gaussian&quot;</span>,<span class="dt">plot=</span><span class="st">&quot;d&quot;</span>, <span class="dt">digits =</span> <span class="dv">2</span>,<span class="dt">xlab =</span> <span class="st">&quot;SMART design&quot;</span>)</a>
+<a class="sourceLine" id="cb2-2" title="2"><span class="co">#&gt; Each subject followed one of the below</span></a>
+<a class="sourceLine" id="cb2-3" title="3"><span class="co">#&gt;                  treatment sequences during the trial.</span></a>
+<a class="sourceLine" id="cb2-4" title="4"><span class="co">#&gt; A treatment sequence is defined</span></a>
+<a class="sourceLine" id="cb2-5" title="5"><span class="co">#&gt;                     as a vector of values (A1,O2,A2).</span></a></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<pre><code>#&gt;   SEQ A1 O2 A2  N  MEAN    VAR    SD
+#&gt; 1   1  0  0  0 25  1.32  50.48  7.10
+#&gt; 2   2  0  0  1  2 10.50   0.50  0.71
+#&gt; 3   3  0  1  0 24 10.88  31.42  5.61
+#&gt; 4   4  0  1  1  5  5.20  18.70  4.32
+#&gt; 5   5  1  0  0  5  7.80   8.70  2.95
+#&gt; 6   6  1  0  1 19  5.16  45.47  6.74
+#&gt; 7   7  1  1  0  2 22.00 242.00 15.56
+#&gt; 8   8  1  1  1 26 10.88  55.07  7.42
+seqmeans(data=codiacs ,plot=&quot;s&quot;,color = &quot;lightblue&quot;,xlab = &quot;SEQ&quot;,family=&quot;gaussian&quot;)
+#&gt; Each subject followed one of the below
+#&gt;                  treatment sequences during the trial.
+#&gt; A treatment sequence is defined
+#&gt;                     as a vector of values (A1,O2,A2).</code></pre>
+<p><img src="data:image/png;base64,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RICAogFSb1Pq2862XxoVKaxiAaqeCNtzktF+aVSkwIo1DqrOCHfPwtovjYoUWgQIKFoTU02h5+HL9kujIgVWNCed252q/dKoSGFF3TwQAQIiQEAECIgAAaUw1QgcKawSmGoEjhRYCYyk9SZuewt3VKTQWh6QvYKMihRaCUw17Gf6R0UKrBSmGoEjhRV180AECIgAAREgIAIElMJUI4EJhV0JTDVSmFDYtfxI2rFob59PXNNUwzWhcFSqK5pqOC455hPXNNVIYEJhF3XzQAQIiAABESAgOuUKROekgeikPRD5ICACBESAgAgQEAECIkBABAiIAAERICACBESAgAgQEAECIkBABAiIAAERICACBJQQIHEgQZxFUOdh5HJqwT7Mu+zsVDqACvFk1B1nYezSnx45ssN6sX3pdADJMwzijUIGIPlqnNBPTR2gZACZ71qqAfHXBcuvljpdlQwg1sQ0gxqQfn3OYk8sTAeQeJ+ZxFA56Y14f6JQsZSfTghQKTYDm06aAHW04y9QpibWVdVPiZeS9jjpubeYbUoGUNWLFY0aJLr50+Pdb4sNhJIBxHoxjqXgRxXN6rIThGY/o2BVOoDkVEP44qoXE38Ucc5D25QQILc+UC+WpggQEAECIkBABAiIAAERICACBESAgAgQEAECIkBABAiIAAERICACBESAgAgQEAECIkBABAiIAAERICACBESAgAgQEAECIkBABAjo/8TXd+E/saJKAAAAAElFTkSuQmCC" /><!-- --></p>
+<pre><code>#&gt;   SEQ A1 O2 A2  N      MEAN       VAR         SD
+#&gt; 1   1  0  0  0 25  1.320000  50.47667  7.1046933
+#&gt; 2   2  0  0  1  2 10.500000   0.50000  0.7071068
+#&gt; 3   3  0  1  0 24 10.875000  31.41848  5.6052188
+#&gt; 4   4  0  1  1  5  5.200000  18.70000  4.3243497
+#&gt; 5   5  1  0  0  5  7.800000   8.70000  2.9495762
+#&gt; 6   6  1  0  1 19  5.157895  45.47368  6.7434178
+#&gt; 7   7  1  1  0  2 22.000000 242.00000 15.5563492
+#&gt; 8   8  1  1  1 26 10.884615  55.06615  7.4206572</code></pre>
+</div>
+<div id="atsmeans" class="section level2">
+<h2>atsmeans</h2>
+<p>Exports all the ATS embedded in SMART design and gives estimated strategy values and the variance-covariance matrix of estimated values.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">atsmeans</span>(<span class="dt">data=</span>codiacs,<span class="dt">conf=</span><span class="ot">TRUE</span>, <span class="dt">alpha=</span><span class="fl">0.05</span>,<span class="dt">plot=</span><span class="ot">TRUE</span>,<span class="dt">digits =</span> <span class="dv">2</span>,<span class="dt">pch=</span><span class="dv">18</span>,<span class="dt">xlab=</span><span class="st">&quot;Treatment sequence&quot;</span>)</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="co">#&gt; $value: estimated strategy values</span></a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="co">#&gt;                 (with confidence intervals)</span></a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="co">#&gt; $vmat: variance-covariance matrix</span></a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="co">#&gt;                 of estimated strategy values</span></a>
+<a class="sourceLine" id="cb5-6" title="6"><span class="co">#&gt; A strategy is defined as a vector of</span></a>
+<a class="sourceLine" id="cb5-7" title="7"><span class="co">#&gt;                   decision makings (d0;d00,d01) for 2 stages </span></a>
+<a class="sourceLine" id="cb5-8" title="8"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb5-9" title="9"><span class="co">#&gt; d0 is the stage-1 decision making for A1</span></a>
+<a class="sourceLine" id="cb5-10" title="10"><span class="co">#&gt; d00 is the stage-2 decision making for A2,</span></a>
+<a class="sourceLine" id="cb5-11" title="11"><span class="co">#&gt;                   conditioning on A1=d0 and O2=0</span></a>
+<a class="sourceLine" id="cb5-12" title="12"><span class="co">#&gt; d01 is the stage-2 decision making for A2,</span></a>
+<a class="sourceLine" id="cb5-13" title="13"><span class="co">#&gt;                   conditioning on A1=d0 and O2=0</span></a></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<pre><code>#&gt; $value
+#&gt;   ATS d0 d00 d01  N value   se lower upper
+#&gt; 1   1  0   0   0 49  6.27 1.11  4.10  8.44
+#&gt; 2   2  0   0   1 30  3.33 1.24  0.90  5.76
+#&gt; 3   3  0   1   0 26 10.69 0.64  9.44 11.95
+#&gt; 4   4  0   1   1  7  7.76 1.09  5.62  9.89
+#&gt; 5   5  1   0   0  7 15.45 6.03  3.62 27.27
+#&gt; 6   6  1   0   1 31  9.46 1.01  7.47 11.45
+#&gt; 7   7  1   1   0 21 14.23 6.08  2.31 26.14
+#&gt; 8   8  1   1   1 45  8.24 1.13  6.02 10.46
+#&gt; 
+#&gt; $vmat
+#&gt;       [,1] [,2] [,3]  [,4]  [,5] [,6]  [,7] [,8]
+#&gt; [1,]  1.23 0.63 0.37 -0.23  0.00 0.00  0.00 0.00
+#&gt; [2,]  0.63 1.54 0.01  0.91  0.00 0.00  0.00 0.00
+#&gt; [3,]  0.37 0.01 0.41  0.05  0.00 0.00  0.00 0.00
+#&gt; [4,] -0.23 0.91 0.05  1.19  0.00 0.00  0.00 0.00
+#&gt; [5,]  0.00 0.00 0.00  0.00 36.42 0.58 36.23 0.39
+#&gt; [6,]  0.00 0.00 0.00  0.00  0.58 1.03  0.25 0.70
+#&gt; [7,]  0.00 0.00 0.00  0.00 36.23 0.25 36.95 0.97
+#&gt; [8,]  0.00 0.00 0.00  0.00  0.39 0.70  0.97 1.28
+#&gt; 
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;myclass&quot; &quot;list&quot;
+atsmeans(data=codiacs,conf=TRUE, alpha=0.05,digits = 2,pch=18,xlab=&quot;abc&quot;)
+#&gt; $value: estimated strategy values
+#&gt;                 (with confidence intervals)
+#&gt; $vmat: variance-covariance matrix
+#&gt;                 of estimated strategy values 
+#&gt; 
+#&gt; A strategy is defined as a vector of
+#&gt;                   decision makings (d0;d00,d01) for 2 stages 
+#&gt; 
+#&gt; d0 is the stage-1 decision making for A1
+#&gt; d00 is the stage-2 decision making for A2,
+#&gt;                   conditioning on A1=d0 and O2=0
+#&gt; d01 is the stage-2 decision making for A2,
+#&gt;                   conditioning on A1=d0 and O2=0
+#&gt; $value
+#&gt;   ATS d0 d00 d01  N value   se lower upper
+#&gt; 1   1  0   0   0 49  6.27 1.11  4.10  8.44
+#&gt; 2   2  0   0   1 30  3.33 1.24  0.90  5.76
+#&gt; 3   3  0   1   0 26 10.69 0.64  9.44 11.95
+#&gt; 4   4  0   1   1  7  7.76 1.09  5.62  9.89
+#&gt; 5   5  1   0   0  7 15.45 6.03  3.62 27.27
+#&gt; 6   6  1   0   1 31  9.46 1.01  7.47 11.45
+#&gt; 7   7  1   1   0 21 14.23 6.08  2.31 26.14
+#&gt; 8   8  1   1   1 45  8.24 1.13  6.02 10.46
+#&gt; 
+#&gt; $vmat
+#&gt;       [,1] [,2] [,3]  [,4]  [,5] [,6]  [,7] [,8]
+#&gt; [1,]  1.23 0.63 0.37 -0.23  0.00 0.00  0.00 0.00
+#&gt; [2,]  0.63 1.54 0.01  0.91  0.00 0.00  0.00 0.00
+#&gt; [3,]  0.37 0.01 0.41  0.05  0.00 0.00  0.00 0.00
+#&gt; [4,] -0.23 0.91 0.05  1.19  0.00 0.00  0.00 0.00
+#&gt; [5,]  0.00 0.00 0.00  0.00 36.42 0.58 36.23 0.39
+#&gt; [6,]  0.00 0.00 0.00  0.00  0.58 1.03  0.25 0.70
+#&gt; [7,]  0.00 0.00 0.00  0.00 36.23 0.25 36.95 0.97
+#&gt; [8,]  0.00 0.00 0.00  0.00  0.39 0.70  0.97 1.28
+#&gt; 
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;myclass&quot; &quot;list&quot;</code></pre>
+</div>
+<div id="smartest" class="section level2">
+<h2>smartest</h2>
+<p>Exports results of statistical tests of comparing adaptive treatment strategies based on both global and pairwise tests.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">smartest</span>(<span class="dt">data=</span>codiacs,<span class="dt">method=</span><span class="st">&quot;IPW&quot;</span>,<span class="dt">adjust=</span><span class="st">&quot;Bon&quot;</span>)</a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="co">#&gt; $Strategy provides the details</span></a>
+<a class="sourceLine" id="cb7-3" title="3"><span class="co">#&gt;                 of decision makings under strategy labels (ATS)</span></a>
+<a class="sourceLine" id="cb7-4" title="4"><span class="co">#&gt; $Global.test assesses the</span></a>
+<a class="sourceLine" id="cb7-5" title="5"><span class="co">#&gt;                 null hypothesis of no difference</span></a>
+<a class="sourceLine" id="cb7-6" title="6"><span class="co">#&gt;                 across all the strategy values</span></a>
+<a class="sourceLine" id="cb7-7" title="7"><span class="co">#&gt; $Pairwise.test compares</span></a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="co">#&gt;                 all the pairs of strategies,</span></a>
+<a class="sourceLine" id="cb7-9" title="9"><span class="co">#&gt;                 of which the labels are shown in $Strategy</span></a>
+<a class="sourceLine" id="cb7-10" title="10"><span class="co">#&gt; The P values</span></a>
+<a class="sourceLine" id="cb7-11" title="11"><span class="co">#&gt;                           should compare to the critical</span></a>
+<a class="sourceLine" id="cb7-12" title="12"><span class="co">#&gt;                           value adjusted for the</span></a>
+<a class="sourceLine" id="cb7-13" title="13"><span class="co">#&gt;                           Bonferroni correction</span></a>
+<a class="sourceLine" id="cb7-14" title="14"><span class="co">#&gt; $Strategy</span></a>
+<a class="sourceLine" id="cb7-15" title="15"><span class="co">#&gt;   ATS d0 d00 d10  N</span></a>
+<a class="sourceLine" id="cb7-16" title="16"><span class="co">#&gt; 1   1  0   0   0 49</span></a>
+<a class="sourceLine" id="cb7-17" title="17"><span class="co">#&gt; 2   2  0   0   1 30</span></a>
+<a class="sourceLine" id="cb7-18" title="18"><span class="co">#&gt; 3   3  0   1   0 26</span></a>
+<a class="sourceLine" id="cb7-19" title="19"><span class="co">#&gt; 4   4  0   1   1  7</span></a>
+<a class="sourceLine" id="cb7-20" title="20"><span class="co">#&gt; 5   5  1   0   0  7</span></a>
+<a class="sourceLine" id="cb7-21" title="21"><span class="co">#&gt; 6   6  1   0   1 31</span></a>
+<a class="sourceLine" id="cb7-22" title="22"><span class="co">#&gt; 7   7  1   1   0 21</span></a>
+<a class="sourceLine" id="cb7-23" title="23"><span class="co">#&gt; 8   8  1   1   1 45</span></a>
+<a class="sourceLine" id="cb7-24" title="24"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-25" title="25"><span class="co">#&gt; $Global.test</span></a>
+<a class="sourceLine" id="cb7-26" title="26"><span class="co">#&gt;   size nATS df    chisq       Pvalue</span></a>
+<a class="sourceLine" id="cb7-27" title="27"><span class="co">#&gt; 1  108    8  5 36.02528 9.388153e-07</span></a>
+<a class="sourceLine" id="cb7-28" title="28"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb7-29" title="29"><span class="co">#&gt; $Pairwise.comparisons</span></a>
+<a class="sourceLine" id="cb7-30" title="30"><span class="co">#&gt;      label        diff    lower.CI   upper.CI          Z       Pvalue</span></a>
+<a class="sourceLine" id="cb7-31" title="31"><span class="co">#&gt; 1  1 vs. 2   2.9388393  -0.8839281  6.7616066  2.4014420 1.633060e-02</span></a>
+<a class="sourceLine" id="cb7-32" title="32"><span class="co">#&gt; 2  1 vs. 3  -4.4260714  -7.3947821 -1.4573608 -4.6571978 3.205425e-06</span></a>
+<a class="sourceLine" id="cb7-33" title="33"><span class="co">#&gt; 3  1 vs. 4  -1.4872321  -6.7749330  3.8004687 -0.8785895 3.796239e-01</span></a>
+<a class="sourceLine" id="cb7-34" title="34"><span class="co">#&gt; 4  1 vs. 5  -9.1780288 -28.3437801  9.9877224 -1.4958833 1.346841e-01</span></a>
+<a class="sourceLine" id="cb7-35" title="35"><span class="co">#&gt; 5  1 vs. 6  -3.1928217  -7.8864191  1.5007756 -2.1249219 3.359313e-02</span></a>
+<a class="sourceLine" id="cb7-36" title="36"><span class="co">#&gt; 6  1 vs. 7  -7.9585956 -27.2590842 11.3418929 -1.2880783 1.977187e-01</span></a>
+<a class="sourceLine" id="cb7-37" title="37"><span class="co">#&gt; 7  1 vs. 8  -1.9733885  -6.9204650  2.9736879 -1.2460576 2.127433e-01</span></a>
+<a class="sourceLine" id="cb7-38" title="38"><span class="co">#&gt; 8  2 vs. 1  -2.9388393  -6.7616066  0.8839281 -2.4014420 1.633060e-02</span></a>
+<a class="sourceLine" id="cb7-39" title="39"><span class="co">#&gt; 9  2 vs. 3  -7.3649107 -11.7116113 -3.0182101 -5.2927562 1.204865e-07</span></a>
+<a class="sourceLine" id="cb7-40" title="40"><span class="co">#&gt; 10 2 vs. 4  -4.4260714  -7.3947821 -1.4573608 -4.6571978 3.205425e-06</span></a>
+<a class="sourceLine" id="cb7-41" title="41"><span class="co">#&gt; 11 2 vs. 5 -12.1168681 -31.3618708  7.1281345 -1.9667381 4.921341e-02</span></a>
+<a class="sourceLine" id="cb7-42" title="42"><span class="co">#&gt; 12 2 vs. 6  -6.1316610 -11.1390517 -1.1242703 -3.8250824 1.307284e-04</span></a>
+<a class="sourceLine" id="cb7-43" title="43"><span class="co">#&gt; 13 2 vs. 7 -10.8974349 -30.2766238  8.4817540 -1.7565593 7.899295e-02</span></a>
+<a class="sourceLine" id="cb7-44" title="44"><span class="co">#&gt; 14 2 vs. 8  -4.9122278 -10.1579567  0.3335010 -2.9251409 3.443003e-03</span></a>
+<a class="sourceLine" id="cb7-45" title="45"><span class="co">#&gt; 15 3 vs. 1   4.4260714   1.4573608  7.3947821  4.6571978 3.205425e-06</span></a>
+<a class="sourceLine" id="cb7-46" title="46"><span class="co">#&gt; 16 3 vs. 2   7.3649107   3.0182101 11.7116113  5.2927562 1.204865e-07</span></a>
+<a class="sourceLine" id="cb7-47" title="47"><span class="co">#&gt; 17 3 vs. 4   2.9388393  -0.8839281  6.7616066  2.4014420 1.633060e-02</span></a>
+<a class="sourceLine" id="cb7-48" title="48"><span class="co">#&gt; 18 3 vs. 5  -4.7519574 -23.7084178 14.2045029 -0.7830499 4.335978e-01</span></a>
+<a class="sourceLine" id="cb7-49" title="49"><span class="co">#&gt; 19 3 vs. 6   1.2332497  -2.5152466  4.9817460  1.0277040 3.040891e-01</span></a>
+<a class="sourceLine" id="cb7-50" title="50"><span class="co">#&gt; 20 3 vs. 7  -3.5325242 -22.6251989 15.5601504 -0.5779530 5.632959e-01</span></a>
+<a class="sourceLine" id="cb7-51" title="51"><span class="co">#&gt; 21 3 vs. 8   2.4526829  -1.6087127  6.5140784  1.8864280 5.923730e-02</span></a>
+<a class="sourceLine" id="cb7-52" title="52"><span class="co">#&gt; 22 4 vs. 1   1.4872321  -3.8004687  6.7749330  0.8785895 3.796239e-01</span></a>
+<a class="sourceLine" id="cb7-53" title="53"><span class="co">#&gt; 23 4 vs. 2   4.4260714   1.4573608  7.3947821  4.6571978 3.205425e-06</span></a>
+<a class="sourceLine" id="cb7-54" title="54"><span class="co">#&gt; 24 4 vs. 3  -2.9388393  -6.7616066  0.8839281 -2.4014420 1.633060e-02</span></a>
+<a class="sourceLine" id="cb7-55" title="55"><span class="co">#&gt; 25 4 vs. 5  -7.6907967 -26.8460697 11.4644763 -1.2541721 2.097795e-01</span></a>
+<a class="sourceLine" id="cb7-56" title="56"><span class="co">#&gt; 26 4 vs. 6  -1.7055896  -6.3562151  2.9450359 -1.1456113 2.519560e-01</span></a>
+<a class="sourceLine" id="cb7-57" title="57"><span class="co">#&gt; 27 4 vs. 7  -6.4713635 -25.7614469 12.8187199 -1.0479386 2.946669e-01</span></a>
+<a class="sourceLine" id="cb7-58" title="58"><span class="co">#&gt; 28 4 vs. 8  -0.4861564  -5.3924816  4.4201688 -0.3095236 7.569232e-01</span></a>
+<a class="sourceLine" id="cb7-59" title="59"><span class="co">#&gt; 29 5 vs. 1   9.1780288  -9.9877224 28.3437801  1.4958833 1.346841e-01</span></a>
+<a class="sourceLine" id="cb7-60" title="60"><span class="co">#&gt; 30 5 vs. 2  12.1168681  -7.1281345 31.3618708  1.9667381 4.921341e-02</span></a>
+<a class="sourceLine" id="cb7-61" title="61"><span class="co">#&gt; 31 5 vs. 3   4.7519574 -14.2045029 23.7084178  0.7830499 4.335978e-01</span></a>
+<a class="sourceLine" id="cb7-62" title="62"><span class="co">#&gt; 32 5 vs. 4   7.6907967 -11.4644763 26.8460697  1.2541721 2.097795e-01</span></a>
+<a class="sourceLine" id="cb7-63" title="63"><span class="co">#&gt; 33 5 vs. 6   5.9852071 -12.8318650 24.8022792  0.9935764 3.204291e-01</span></a>
+<a class="sourceLine" id="cb7-64" title="64"><span class="co">#&gt; 34 5 vs. 7   1.2194332  -1.7667001  4.2055665  1.2756248 2.020882e-01</span></a>
+<a class="sourceLine" id="cb7-65" title="65"><span class="co">#&gt; 35 5 vs. 8   7.2046403 -11.7758778 26.1851584  1.1857097 2.357370e-01</span></a>
+<a class="sourceLine" id="cb7-66" title="66"><span class="co">#&gt; 36 6 vs. 1   3.1928217  -1.5007756  7.8864191  2.1249219 3.359313e-02</span></a>
+<a class="sourceLine" id="cb7-67" title="67"><span class="co">#&gt; 37 6 vs. 2   6.1316610   1.1242703 11.1390517  3.8250824 1.307284e-04</span></a>
+<a class="sourceLine" id="cb7-68" title="68"><span class="co">#&gt; 38 6 vs. 3  -1.2332497  -4.9817460  2.5152466 -1.0277040 3.040891e-01</span></a>
+<a class="sourceLine" id="cb7-69" title="69"><span class="co">#&gt; 39 6 vs. 4   1.7055896  -2.9450359  6.3562151  1.1456113 2.519560e-01</span></a>
+<a class="sourceLine" id="cb7-70" title="70"><span class="co">#&gt; 40 6 vs. 5  -5.9852071 -24.8022792 12.8318650 -0.9935764 3.204291e-01</span></a>
+<a class="sourceLine" id="cb7-71" title="71"><span class="co">#&gt; 41 6 vs. 7  -4.7657739 -23.8900601 14.3585123 -0.7784350 4.363126e-01</span></a>
+<a class="sourceLine" id="cb7-72" title="72"><span class="co">#&gt; 42 6 vs. 8   1.2194332  -1.7667001  4.2055665  1.2756248 2.020882e-01</span></a>
+<a class="sourceLine" id="cb7-73" title="73"><span class="co">#&gt; 43 7 vs. 1   7.9585956 -11.3418929 27.2590842  1.2880783 1.977187e-01</span></a>
+<a class="sourceLine" id="cb7-74" title="74"><span class="co">#&gt; 44 7 vs. 2  10.8974349  -8.4817540 30.2766238  1.7565593 7.899295e-02</span></a>
+<a class="sourceLine" id="cb7-75" title="75"><span class="co">#&gt; 45 7 vs. 3   3.5325242 -15.5601504 22.6251989  0.5779530 5.632959e-01</span></a>
+<a class="sourceLine" id="cb7-76" title="76"><span class="co">#&gt; 46 7 vs. 4   6.4713635 -12.8187199 25.7614469  1.0479386 2.946669e-01</span></a>
+<a class="sourceLine" id="cb7-77" title="77"><span class="co">#&gt; 47 7 vs. 5  -1.2194332  -4.2055665  1.7667001 -1.2756248 2.020882e-01</span></a>
+<a class="sourceLine" id="cb7-78" title="78"><span class="co">#&gt; 48 7 vs. 6   4.7657739 -14.3585123 23.8900601  0.7784350 4.363126e-01</span></a>
+<a class="sourceLine" id="cb7-79" title="79"><span class="co">#&gt; 49 7 vs. 8   5.9852071 -12.8318650 24.8022792  0.9935764 3.204291e-01</span></a>
+<a class="sourceLine" id="cb7-80" title="80"><span class="co">#&gt; 50 8 vs. 1   1.9733885  -2.9736879  6.9204650  1.2460576 2.127433e-01</span></a>
+<a class="sourceLine" id="cb7-81" title="81"><span class="co">#&gt; 51 8 vs. 2   4.9122278  -0.3335010 10.1579567  2.9251409 3.443003e-03</span></a>
+<a class="sourceLine" id="cb7-82" title="82"><span class="co">#&gt; 52 8 vs. 3  -2.4526829  -6.5140784  1.6087127 -1.8864280 5.923730e-02</span></a>
+<a class="sourceLine" id="cb7-83" title="83"><span class="co">#&gt; 53 8 vs. 4   0.4861564  -4.4201688  5.3924816  0.3095236 7.569232e-01</span></a>
+<a class="sourceLine" id="cb7-84" title="84"><span class="co">#&gt; 54 8 vs. 5  -7.2046403 -26.1851584 11.7758778 -1.1857097 2.357370e-01</span></a>
+<a class="sourceLine" id="cb7-85" title="85"><span class="co">#&gt; 55 8 vs. 6  -1.2194332  -4.2055665  1.7667001 -1.2756248 2.020882e-01</span></a>
+<a class="sourceLine" id="cb7-86" title="86"><span class="co">#&gt; 56 8 vs. 7  -5.9852071 -24.8022792 12.8318650 -0.9935764 3.204291e-01</span></a></code></pre></div>
+</div>
+<div id="getncp" class="section level2">
+<h2>getncp</h2>
+<p>Return the value of non-centralized parameter for the chi-square distribution.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">getncp</span>(<span class="dt">df=</span><span class="dv">5</span>, <span class="dt">alpha =</span> <span class="fl">0.05</span>, <span class="dt">beta =</span> <span class="fl">0.2</span>, <span class="dt">d =</span> <span class="fl">1e-04</span>, <span class="dt">start =</span> <span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb8-2" title="2"><span class="co">#&gt; [1] 12.8249</span></a></code></pre></div>
+</div>
+<div id="smartsize" class="section level2">
+<h2>smartsize</h2>
+<p>Exports estimated strategy-specified means and their confidence interval, as well as the asymptotic variance-covariance matrix for these estimates.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">smartsize</span>(<span class="dt">delta=</span><span class="fl">0.0435</span>,<span class="dt">df=</span><span class="dv">5</span>,<span class="dt">global=</span><span class="ot">TRUE</span>,<span class="dt">alpha=</span><span class="fl">0.05</span>,<span class="dt">beta=</span><span class="fl">0.20</span>)</a>
+<a class="sourceLine" id="cb9-2" title="2"><span class="co">#&gt; The sample size is for total subjects</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="co">#&gt;           registered in the trial.</span></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="co">#&gt;       NCP  delta df   N</span></a>
+<a class="sourceLine" id="cb9-5" title="5"><span class="co">#&gt; 1 12.8249 0.0435  5 295</span></a>
+<a class="sourceLine" id="cb9-6" title="6"></a>
+<a class="sourceLine" id="cb9-7" title="7">SEQ &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">8</span></a>
+<a class="sourceLine" id="cb9-8" title="8">A1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">4</span>))</a>
+<a class="sourceLine" id="cb9-9" title="9">PI1 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="fl">0.5</span>,<span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb9-10" title="10">O2 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>),<span class="dv">2</span>)</a>
+<a class="sourceLine" id="cb9-11" title="11">P2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">0.7</span>,<span class="fl">0.7</span>,<span class="fl">0.3</span>,<span class="fl">0.3</span>,<span class="fl">0.6</span>,<span class="fl">0.6</span>,<span class="fl">0.4</span>,<span class="fl">0.4</span>)</a>
+<a class="sourceLine" id="cb9-12" title="12">A2 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="dv">4</span>)</a>
+<a class="sourceLine" id="cb9-13" title="13">PI2 &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="fl">0.5</span>,<span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb9-14" title="14">MEAN &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">8</span></a>
+<a class="sourceLine" id="cb9-15" title="15">SD &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">10</span>,<span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb9-16" title="16">SIMatrix &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">cbind</span>(SEQ,A1,PI1,O2,P2,A2,PI2,MEAN,SD))</a>
+<a class="sourceLine" id="cb9-17" title="17">  </a>
+<a class="sourceLine" id="cb9-18" title="18"><span class="kw">smartsize</span>(SIMatrix,<span class="dt">global=</span><span class="ot">TRUE</span>,<span class="dt">alpha=</span><span class="fl">0.05</span>,<span class="dt">beta=</span><span class="fl">0.20</span>)</a>
+<a class="sourceLine" id="cb9-19" title="19"><span class="co">#&gt; The sample size is for total subjects</span></a>
+<a class="sourceLine" id="cb9-20" title="20"><span class="co">#&gt;           registered in the trial.</span></a>
+<a class="sourceLine" id="cb9-21" title="21"><span class="co">#&gt;       NCP      delta df   N</span></a>
+<a class="sourceLine" id="cb9-22" title="22"><span class="co">#&gt; 1 12.8249 0.04351961  5 295</span></a></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

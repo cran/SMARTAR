@@ -4,38 +4,64 @@
 \alias{smartsize}
 \title{sample size calculation}
 \usage{
-smartsize(sim = NULL, delta = NULL, df = NULL, alpha = 0.05,
-  beta = 0.2, global = TRUE, family = "normal", method = "Gest")
+smartsize(
+  sim = NULL,
+  delta = NULL,
+  df = NULL,
+  alpha = 0.05,
+  beta = 0.2,
+  global = TRUE,
+  family = c("gaussian", "binomial")[1]
+)
 }
 \arguments{
-\item{sim}{A numeric matrix containing the values of treatment sequence-specific parameters to generate the SMART data, including the values of stage-specific treatments, intermediate outcome and final primary outcome.}
+\item{sim}{A numeric matrix containing the values
+of treatment sequence-specific parameters to generate
+ the SMART data, including the values of stage-specific
+  treatments, intermediate outcome and final primary outcome.}
 
-\item{delta}{The standardized effect size for sample size calculation.}
+\item{delta}{The standardized effect size
+for sample size calculation.}
 
-\item{df}{The degrees of freedom for the chisquare test.}
+\item{df}{The degrees of freedom for
+the chisquare test.}
 
 \item{alpha}{Type I error rate.}
 
 \item{beta}{Type II error rate.}
 
-\item{global}{If TRUE then power the SMART based on a global test, otherwise power the SMART based on a pairwise test. The default is TRUE}
+\item{global}{If TRUE then power the SMART
+based on a global test, otherwise power
+the SMART based on a pairwise test.
+The default is TRUE}
 
-\item{family}{A character string to specify the type of final primary outcome. The default is family=“normal”, which refers to the continuous primary outcome. If family=”binomial” then the primary outcome will be treated as binary variable.}
-
-\item{method}{A characteristic string to specify the method of estimation. We provide 2 method of estimation. The default is method=”MLE”, which is the Maximized Likelihood Estimation method. If method=”IPWN” then use the Normalized Inversed Probability Weighted method. The input of this option is only needed when power the SMART based on global test but not the pairwise test.}
+\item{family}{A character string to specify
+the type of final primary outcome. The default is
+ family=“gaussian”, which refers to the continuous
+ primary outcome. If family=”binomial” then the
+ primary outcome will be treated as binary variable.}
 }
 \value{
-Standardized effect size and total sample size for SMART
+Standardized effect size and
+total sample size for SMART
 \itemize{
    \item delta: standardized effect size
    \item n: total sample size
    }
 }
 \description{
-Return a message that contains the estimated strategy-specified means and their confidence interval, as well as the asymptotic variance-covariance matrix for these estimates.
+Return a message that contains the estimated
+strategy-specified means and their confidence interval,
+as well as the asymptotic variance-covariance
+matrix for these estimates.
 }
 \references{
-Murphy, S. A. (2005). An experimental design for the development of adaptive treatment strategies. Statistics in Medicine. 24(10): 1455-1481.
+Murphy, S. A. (2005). An experimental
+design for the development of adaptive treatment
+strategies. Statistics in Medicine. 24(10): 1455-1481.
 
-Ogbagaber S. B., Karp, J., and Wahed A.S. (2015). Design of sequentially randomization trials for testing adaptive treatment strategies. Statistics in Medicine. DOI: 10.1002/sim.6747.
+Ogbagaber S. B., Karp, J., and
+Wahed A.S. (2015). Design of sequentially randomization
+trials for testing adaptive treatment strategies.
+Statistics in Medicine. DOI: 10.1002/sim.6747.
 }

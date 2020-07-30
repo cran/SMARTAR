@@ -4,17 +4,82 @@
 \alias{seqmeans}
 \title{Summarize sequence-specific descriptive statistics}
 \usage{
-seqmeans(data, family = "normal", plot = "d")
+seqmeans(
+  data,
+  family = c("gaussian", "binomial")[1],
+  plot = "d",
+  digits = NULL,
+  color = c("yellow", "forestgreen"),
+  pch = c(19, 15),
+  title = NULL,
+  xlab = NULL,
+  ylab = NULL,
+  xtext = NULL,
+  legend = c("Evaluation", "Treatment"),
+  reference = TRUE
+)
 }
 \arguments{
-\item{data}{Input data frame of the sequential randomized trial (SMART) data used for analysis. The data should include the variables of stage-specific treatments (At; t=1,2,3), intermediate evaluation (Ot; t=1,2,3) and final primary outcome (Y), where t represent the number of stages embedded in design. If stage-1 treatment (A1) takes into account the information of baseline evaluation, O1 needed to be include in data, otherwise not.}
+\item{data}{Input data frame of the sequential randomized
+trial (SMART) data used for analysis. The data should include
+ the variables of stage-specific treatments (At; t=1,2,3),
+ intermediate evaluation (Ot; t=1,2,3) and final primary outcome (Y),
+  where t represent the number of stages embedded in design.
+  If stage-1 treatment (A1) takes into account the information
+  of baseline evaluation, O1 needed to be include in data,
+  otherwise not.}
 
-\item{family}{A character string to specify the type of final primary outcome. The default is family=“normal”, which refers to the continuous primary outcome. If family=”binomial” then the primary outcome will be treated as binary variable.}
+\item{family}{A character string to specify the
+type of final primary outcome. The default is
+family=“gaussian”, which refers to the continuous
+primary outcome. If family=”binomial” then the primary
+outcome will be treated as binary variable.}
 
-\item{plot}{A character string to specify the output figure. If plot=”d” then output the design diagram of SMART; If plot=”s” then output boxplot for continuous primary outcome or bar plot for binary primary outcome by sequence. The default is plot=”d”.}
+\item{plot}{A character string to specify the output figure.
+If plot=”d” then output the design diagram of SMART;
+If plot=”s” then output boxplot for continuous primary
+outcome or bar plot for binary primary outcome by sequence.
+The default is plot=”d”.}
+
+\item{digits}{An integer indicating the number of decimal places
+for sequence-specific mean and variance. Default is digits=NULL.}
+
+\item{color}{Characters indicating the color of
+boxplot for continuous primary outcome and barplot for binomial
+primary outcome. The first Default is “yellow", the second default
+is c("yellow","forestgreen").}
+
+\item{pch}{Two integer indicating the point shape of
+design diagram of SMART. Default is c(19,15).}
+
+\item{title}{An character indicating the title of boxplot, barplot
+for primary outcome or design diagram of SMART. For primary
+outcome, the default is "Primary outcome by treatment
+sequence (O1,A1,O2...)", for design diagram, the default is
+"Design diagram of SMART".}
+
+\item{xlab}{Characters to specify the label of the horizontal
+axis of the output figure.}
+
+\item{ylab}{Characters to specify the label of the vertical 
+axis of the output figure.}
+
+\item{xtext}{Characters indicating the text of x axis boxplot.}
+
+\item{legend}{Characters to specify the legend of the design 
+diagram of SMART. Default is legend=c("Evaluation","Treatment").}
+
+\item{reference}{Logic argument to add a reference line to the 
+graph of descriptive statistics of the primary outcome. 
+The value of the reference line is equal to the average 
+of all sequence-specific means. If TRUE, add a reference 
+line (mean of outcome) to boxplot of the primary outcome, 
+otherwise do not add reference line. The default is reference=FALSE.}
 }
 \value{
-an object of information of all the treatment sequences and sequences-specific descriptive statistics defined in a SMART data
+an object of information of all the treatment sequences
+ and sequences-specific descriptive statistics
+ defined in a SMART data
 \itemize{
    \item SEQ: Index of treatment sequences.
    \item O1: Baseline evaluation outcome.
@@ -29,54 +94,34 @@ an object of information of all the treatment sequences and sequences-specific d
    }
 }
 \description{
-Return a message that lists all the treatment sequence embedded in SMART design and summarizes all the sequence-specific descriptive statistics. It also provide design diagram of SMART and graphs of sequence-specific descriptive statistics (boxplot for continuous primary outcome and barchart for binary primary outcome).
+Return a message that lists all the treatment
+ sequence embedded in SMART design and summarizes all
+  the sequence-specific descriptive statistics. It also
+  provide design diagram of SMART and graphs of sequence-specific
+   descriptive statistics (boxplot for continuous primary outcome
+    and barchart for binary primary outcome).
 }
 \examples{
 
-#generate a pesudo SMART data
-N=8000                       # total sample size
-A1=O2=A2=Y=rep(NA,N)
-Dat=data.frame(A1,O2,A2,Y)
-
-# stage-1 treatment
-Dat$A1=sample(c(0,1),size=N,prob=c(1,1),replace=TRUE)
-
-# intermediate outcome
-n0=length(Dat$A1[which(Dat$A1==0)]); n1=N-n0
-Dat$O2[which(Dat$A1==0)]=rbinom(n=n0,size=1,p=0.6)
-Dat$O2[which(Dat$A1==1)]=rbinom(n=n1,size=1,p=0.4)
-
-# stage-2 treatment
-n00=nrow(Dat[which(Dat$A1==0 & Dat$O2==0),]); n01=n0-n00
-n10=nrow(Dat[which(Dat$A1==1 & Dat$O2==0),]); n11=n1-n10
-Dat$A2[which(Dat$A1==0 & Dat$O2==0)]=sample(c(0,1),size=n00,prob=c(1,1),replace=TRUE)
-Dat$A2[which(Dat$A1==0 & Dat$O2==1)]=sample(c(0,1),size=n01,prob=c(1,1),replace=TRUE)
-Dat$A2[which(Dat$A1==1 & Dat$O2==0)]=sample(c(0,1),size=n10,prob=c(1,1),replace=TRUE)
-Dat$A2[which(Dat$A1==1 & Dat$O2==1)]=sample(c(0,1),size=n11,prob=c(1,1),replace=TRUE)
-
-n000=nrow(Dat[which(Dat$A1==0 & Dat$O2==0 & Dat$A2==0),]); n001=n00-n000
-n010=nrow(Dat[which(Dat$A1==0 & Dat$O2==1 & Dat$A2==0),]); n011=n01-n010
-n100=nrow(Dat[which(Dat$A1==1 & Dat$O2==0 & Dat$A2==0),]); n101=n10-n100
-n110=nrow(Dat[which(Dat$A1==1 & Dat$O2==1 & Dat$A2==0),]); n111=n11-n110
-
-# final primary outcome
-Dat$Y[which(Dat$A1==0 & Dat$O2==0 & Dat$A2==0)]=rnorm(n=n000,mean=7,sd=6)
-Dat$Y[which(Dat$A1==0 & Dat$O2==0 & Dat$A2==1)]=rnorm(n=n001,mean=7,sd=6)
-Dat$Y[which(Dat$A1==0 & Dat$O2==1 & Dat$A2==0)]=rnorm(n=n010,mean=7,sd=8)
-Dat$Y[which(Dat$A1==0 & Dat$O2==1 & Dat$A2==1)]=rnorm(n=n011,mean=7,sd=8)
-Dat$Y[which(Dat$A1==1 & Dat$O2==0 & Dat$A2==0)]=rnorm(n=n100,mean=7,sd=6)
-Dat$Y[which(Dat$A1==1 & Dat$O2==0 & Dat$A2==1)]=rnorm(n=n101,mean=7,sd=6)
-Dat$Y[which(Dat$A1==1 & Dat$O2==1 & Dat$A2==0)]=rnorm(n=n110,mean=7,sd=8)
-Dat$Y[which(Dat$A1==1 & Dat$O2==1 & Dat$A2==1)]=rnorm(n=n111,mean=7,sd=8)
-
 #get descriptive statistics
-seqmeans(data=Dat,family="normal",plot="d")
+seqmeans(data=codiacs,family="gaussian",plot="d",digits=2,pch=c(18,14),
+xtext=1:4,xlab="SMARTAR design")
+seqmeans(data=codiacs, family="gaussian", plot="s",digits=2,
+color="lightblue",
+title="Primary outcome",ylab="Primary outcome")
 
 }
 \references{
-Thall P., Millikan R. and Sung H.G. (2000), ``Evaluating multiple treatment courses in clinical trials,'' \emph{Statistics in Medicine}, 19, 1011-1028
+Thall P., Millikan R. and Sung H.G. (2000),
+ ``Evaluating multiple treatment courses in clinical trials,''
+ \emph{Statistics in Medicine}, 19, 1011-1028
 
-Lavori P. W. and Dawson R. (2000), ``A design for testing clinical strategies: biased adaptive within-subject randomization,'' \emph{Journal of the Royal Statistical Society, Series A}, 163, 29-38.
+Lavori P. W. and Dawson R. (2000),
+ ``A design for testing clinical strategies: biased
+ adaptive within-subject randomization,''
+ \emph{Journal of the Royal Statistical Society, Series A}, 163, 29-38.
 
-Murphy, S. A. (2005), ``An experimental design for the development of adaptive treatment strategies,” \emph{Statistics in Medicine}, 24, 1455-1481.
+Murphy, S. A. (2005), ``An experimental
+design for the development of adaptive treatment strategies,”
+\emph{Statistics in Medicine}, 24, 1455-1481.
 }

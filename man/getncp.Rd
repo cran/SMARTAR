@@ -4,8 +4,7 @@
 \alias{getncp}
 \title{get non-centralized parameter}
 \usage{
-getncp(df, alpha = 0.05, beta = 0.2, d = 1e-04, start = 5,
-  dec = 2)
+getncp(df, alpha = 0.05, beta = 0.2, d = 1e-04, start = 5)
 }
 \arguments{
 \item{df}{Degrees of freedom of chi-square test}
@@ -14,15 +13,20 @@ getncp(df, alpha = 0.05, beta = 0.2, d = 1e-04, start = 5,
 
 \item{beta}{Type II error rate of chi-square test. The default beta=0.20}
 
-\item{d}{Critical value of distance of the searching procedure. The search of non-centralized parameter value stops at the absolute distance between the actual power and the target power less than the value of d. The default value of d=0.0001}
+\item{d}{Critical value of distance of the searching
+procedure. The search of non-centralized parameter value
+stops at the absolute distance between the actual power and
+the target power less than the value of d. The default value
+of d=0.0001}
 
 \item{start}{Initial value of searching the non-centralized parameter.}
-
-\item{dec}{A numeric number to specify the decimal of the output parameter value. The default of dec=2.}
 }
 \value{
-The value of non-centralized parameter for the chi-square distribution
+The value of non-centralized parameter for the
+ chi-square distribution
 }
 \description{
-Return the value of non-centralized parameter for the chi-square distribution given type I, II error and degrees of freedom.
+Return the value of non-centralized parameter
+for the chi-square distribution given type I,
+II error and degrees of freedom.
 }
